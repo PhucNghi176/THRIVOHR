@@ -9,6 +9,7 @@ const MyDocument = () => {
         {/* Add any custom meta tags or other content here */}
         <meta name="referrer" content="no-referrer" />
         <meta name="referrer-policy" content="no-referrer" />
+        <meta http-equiv="hardware-acceleration" content="off"/>
       </Head>
       <body>
         <Main />

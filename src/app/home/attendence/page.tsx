@@ -13,7 +13,13 @@ const Attendance: React.FC = () => {
     const startCamera = async () => {
       try {
         console.log("Requesting camera access...");
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            facingMode: 'user'
+          }
+        });
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
           videoRef.current.play();
@@ -80,9 +86,11 @@ const Attendance: React.FC = () => {
           <>
             <video
               ref={videoRef}
-              className="rounded-md shadow-lg transform scale-x-[-1]"
+              className="rounded-md shadow-lg "
               style={{ width: `${videoWidth}%`, height: 'auto' }}
               autoPlay
+              playsInline
+              muted
             />
             <button
               onClick={captureImage}
