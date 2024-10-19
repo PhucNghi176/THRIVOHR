@@ -15,7 +15,7 @@ type TBreadCrumbProps = {
 
 const NextBreadcrumb = ({ homeElement, separator, containerClasses, listClasses, activeClasses, capitalizeLinks }: TBreadCrumbProps) => {
     const paths = usePathname();
-    let pathNames = paths.split('/').filter(path => path);
+    let pathNames = paths!.split('/').filter(path => path);
 
     // Remove the first "home" from the breadcrumb if it exists
     if (pathNames[0] === 'home') {
