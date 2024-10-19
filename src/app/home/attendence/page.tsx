@@ -12,6 +12,7 @@ const Attendance: React.FC = () => {
   useEffect(() => {
     const startCamera = async () => {
       try {
+        console.log("Requesting camera access...");
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
@@ -20,6 +21,20 @@ const Attendance: React.FC = () => {
         setIsCameraOn(true);
       } catch (err) {
         console.error("Error accessing the camera: ", err);
+        if (err instanceof DOMException) {
+          if (err.name === 'NotAllowedError') {
+            console.error("Camera access was denied by the user or the system");
+          } else if (err.name === 'NotFoundError') {
+            console.error("No camera found on the device");
+          } else if (err.name === 'NotReadableError') {
+            console.error("Camera is already in use by another application");
+          } else if (err.name === 'OverconstrainedError') {
+            console.error("Camera doesn't satisfy the constraints");
+          } else if (err.name === 'SecurityError') {
+            console.error("Media support is disabled in this browser");
+          }
+        }
+        // You might want to set an error state here to display to the user
       }
     };
 
